@@ -1,0 +1,14 @@
+#-----------------------------------------------------------
+# Vivado v2023.1 (64-bit)
+# SW Build 3865809 on Sun May  7 15:05:29 MDT 2023
+# IP Build 3864474 on Sun May  7 20:36:21 MDT 2023
+# SharedData Build 3865790 on Sun May 07 13:33:03 MDT 2023
+# Start of session at: Fri Oct 23 20:14:20 2026
+# Process ID: 6656
+# Current directory: C:/Users/Udp/LAB03_FSM_ACCESO/LAB03_FSM_ACCESO.runs/impl_1
+# Command line: vivado.exe -log lab03_top.vdi -applog -product Vivado -messageDb vivado.pb -mode batch -source lab03_top.tcl -notrace
+# Log file: C:/Users/Udp/LAB03_FSM_ACCESO/LAB03_FSM_ACCESO.runs/impl_1/lab03_top.vdi
+# Journal file: C:/Users/Udp/LAB03_FSM_ACCESO/LAB03_FSM_ACCESO.runs/impl_1\vivado.jou
+# Running On: DESKTOP-QOR2NU2, OS: Windows, CPU Frequency: 2112 MHz, CPU Physical cores: 12, Host memory: 34018 MB
+#-----------------------------------------------------------
+source lab03_top.tcl -notrace

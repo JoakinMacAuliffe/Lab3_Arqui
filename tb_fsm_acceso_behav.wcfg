@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wave_config>
+   <wave_state>
+   </wave_state>
+   <db_ref_list>
+      <db_ref path="tb_fsm_acceso_behav.wdb" id="1">
+         <top_modules>
+            <top_module name="tb_fsm_acceso" />
+         </top_modules>
+      </db_ref>
+   </db_ref_list>
+   <zoom_setting>
+      <ZoomStartTime time="0.000 ns"></ZoomStartTime>
+      <ZoomEndTime time="1,000.001 ns"></ZoomEndTime>
+      <Cursor1Time time="1,000.000 ns"></Cursor1Time>
+   </zoom_setting>
+   <column_width_setting>
+      <NameColumnWidth column_width="129"></NameColumnWidth>
+      <ValueColumnWidth column_width="78"></ValueColumnWidth>
+   </column_width_setting>
+   <WVObjectSize size="13" />
+   <wvobject fp_name="/tb_fsm_acceso/CLK" type="logic">
+      <obj_property name="ElementShortName">CLK</obj_property>
+      <obj_property name="ObjectShortName">CLK</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_fsm_acceso/RESET" type="logic">
+      <obj_property name="ElementShortName">RESET</obj_property>
+      <obj_property name="ObjectShortName">RESET</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_fsm_acceso/X" type="logic">
+      <obj_property name="ElementShortName">X</obj_property>
+      <obj_property name="ObjectShortName">X</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_fsm_acceso/ENTER" type="logic">
+      <obj_property name="ElementShortName">ENTER</obj_property>
+      <obj_property name="ObjectShortName">ENTER</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_fsm_acceso/X_OUT" type="logic">
+      <obj_property name="ElementShortName">X_OUT</obj_property>
+      <obj_property name="ObjectShortName">X_OUT</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_fsm_acceso/ACCESO_OK" type="logic">
+      <obj_property name="ElementShortName">ACCESO_OK</obj_property>
+      <obj_property name="ObjectShortName">ACCESO_OK</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_fsm_acceso/ERROR" type="logic">
+      <obj_property name="ElementShortName">ERROR</obj_property>
+      <obj_property name="ObjectShortName">ERROR</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_fsm_acceso/BLOQUEADO" type="logic">
+      <obj_property name="ElementShortName">BLOQUEADO</obj_property>
+      <obj_property name="ObjectShortName">BLOQUEADO</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_fsm_acceso/INTENTOS" type="array">
+      <obj_property name="ElementShortName">INTENTOS[1:0]</obj_property>
+      <obj_property name="ObjectShortName">INTENTOS[1:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_fsm_acceso/ESTADO_LED" type="array">
+      <obj_property name="ElementShortName">ESTADO_LED[3:0]</obj_property>
+      <obj_property name="ObjectShortName">ESTADO_LED[3:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_fsm_acceso/uut/Inst_fsm/estado_actual" type="other">
+      <obj_property name="ElementShortName">estado_actual</obj_property>
+      <obj_property name="ObjectShortName">estado_actual</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_fsm_acceso/uut/Inst_fsm/estado_siguiente" type="other">
+      <obj_property name="ElementShortName">estado_siguiente</obj_property>
+      <obj_property name="ObjectShortName">estado_siguiente</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_fsm_acceso/uut/Inst_fsm/ENTER" type="logic">
+      <obj_property name="ElementShortName">ENTER</obj_property>
+      <obj_property name="ObjectShortName">ENTER</obj_property>
+   </wvobject>
+</wave_config>

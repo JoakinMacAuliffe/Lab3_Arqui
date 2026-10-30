@@ -1,0 +1,9 @@
+# compile vhdl design source files
+vhdl xil_defaultlib  \
+"../../../../LAB03_FSM_ACCESO.srcs/sources_1/new/detector_flanco.vhd" \
+"../../../../LAB03_FSM_ACCESO.srcs/sources_1/new/fsm_acceso.vhd" \
+"../../../../LAB03_FSM_ACCESO.srcs/sources_1/new/lab03_top.vhd" \
+"../../../../LAB03_FSM_ACCESO.srcs/sources_1/new/tb_fsm_acceso.vhd" \
+
+# Do not sort compile order
+nosort

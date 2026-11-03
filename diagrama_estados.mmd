@@ -1,0 +1,50 @@
+stateDiagram-v2
+    %% Definición de estados (usamos etiquetas limpias para evitar saltos indeseados)
+    state "INICIO<br/>LED: 0000" as INICIO
+    
+    state "OK1<br/>LED: 0001" as OK1
+    state "OK2<br/>LED: 0010" as OK2
+    state "OK3<br/>LED: 0011" as OK3
+    state "OK4<br/>LED: 0100" as OK4
+    
+    state "E1<br/>LED: 0001" as E1
+    state "E2<br/>LED: 0010" as E2
+    state "E3<br/>LED = 0011" as E3
+    state "E4<br/>LED: 0100" as E4
+    
+    state "ESTADO_OK<br/>ACCESO_OK: 1<br/>LED: 0101" as ESTADO_OK
+    state "NOK<br/>ERROR: 1<br/>LED: 1110" as NOK
+    state "BLOQUEO<br/>BLOQUEADO: 1<br/>LED: 1111" as BLOQUEO
+
+    %% Transición inicial
+    [*] --> INICIO : RESET / cont=0
+
+    %% Transiciones desde INICIO
+    INICIO --> OK1 : ENTER / X=1
+    INICIO --> E1  : ENTER / X=0
+
+    %% Rama de aciertos (1 -> 0 -> 1 -> 1 -> 0)
+    OK1 --> OK2 : ENTER / X=0
+    OK1 --> E2  : ENTER / X=1
+
+    OK2 --> OK3 : ENTER / X=1
+    OK2 --> E3  : ENTER / X=0
+
+    OK3 --> OK4 : ENTER / X=1
+    OK3 --> E4  : ENTER / X=0
+
+    OK4 --> ESTADO_OK : ENTER / X=0
+    OK4 --> NOK       : ENTER / X=1, cont!=2
+    OK4 --> BLOQUEO   : ENTER / X=1, cont=2
+
+    %% Rama de errores arrastrados
+    E1 --> E2 : ENTER / cualquier X
+    E2 --> E3 : ENTER / cualquier X
+    E3 --> E4 : ENTER / cualquier X
+    E4 --> NOK     : ENTER / cont!=2
+    E4 --> BLOQUEO : ENTER / cont=2
+
+    %% Estados finales
+    ESTADO_OK --> ESTADO_OK : ENTER
+    NOK --> INICIO          : ENTER
+    BLOQUEO --> BLOQUEO     : ENTER

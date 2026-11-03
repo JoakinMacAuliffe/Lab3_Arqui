@@ -1,0 +1,37 @@
+graph LR
+    %% Definición de Entradas Físicas
+    CLK([CLK <br> 100 MHz])
+    RESET([RESET <br> BTNU])
+    X_IN([X <br> SW0])
+    ENTER_IN([ENTER <br> BTNC])
+
+    %% Contenedor del Módulo Top
+    subgraph lab03_top [Módulo Principal: lab03_top]
+        direction LR
+        
+        %% Submódulos
+        DETECTOR[<b>detector_flanco</b><br>Sincronizador y<br>Antirrebote]
+        FSM[<b>fsm_acceso</b><br>Máquina de Estados]
+        
+        %% Conexiones internas
+        DETECTOR -- pulso_enter --> FSM
+    end
+
+    %% Conexiones de Entradas a Submódulos
+    CLK --> DETECTOR
+    RESET --> DETECTOR
+    ENTER_IN --> DETECTOR
+
+    CLK --> FSM
+    RESET --> FSM
+    X_IN --> FSM
+
+    %% Conexión directa (Bypass para visualización)
+    X_IN -- X_OUT --> L0([LED0 <br> Entrada X])
+
+    %% Definición de Salidas Físicas
+    FSM -- ACCESO_OK --> L1([LED1 <br> ACCESO_OK])
+    FSM -- ERROR --> L2([LED2 <br> ERROR])
+    FSM -- BLOQUEADO --> L3([LED3 <br> BLOQUEADO])
+    FSM -- INTENTOS[1:0] --> L45([LED4, LED5 <br> INTENTOS])
+    FSM -- ESTADO_LED[3:0] --> L69([LED6 a LED9 <br> ESTADO INTERNO])

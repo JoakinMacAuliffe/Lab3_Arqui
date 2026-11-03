@@ -1,7 +1,0 @@
-Time resolution is 1 ps
-Failure: Fallo Caso 4: Bloqueo no activado
-Time: 1 us  Iteration: 0  Process: /tb_fsm_acceso/stim_proc  File: C:/Users/Udp/LAB03_FSM_ACCESO/LAB03_FSM_ACCESO.srcs/sources_1/new/tb_fsm_acceso.vhd
-$finish called at time : 1 us : File "C:/Users/Udp/LAB03_FSM_ACCESO/LAB03_FSM_ACCESO.srcs/sources_1/new/tb_fsm_acceso.vhd" Line 69
-Failure: Fallo Caso 4: Bloqueo no activado
-Time: 1 us  Iteration: 0  Process: /tb_fsm_acceso/stim_proc  File: C:/Users/Udp/LAB03_FSM_ACCESO/LAB03_FSM_ACCESO.srcs/sources_1/new/tb_fsm_acceso.vhd
-$finish called at time : 1 us : File "C:/Users/Udp/LAB03_FSM_ACCESO/LAB03_FSM_ACCESO.srcs/sources_1/new/tb_fsm_acceso.vhd" Line 69

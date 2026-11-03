@@ -3,8 +3,8 @@
 # SW Build 3865809 on Sun May  7 15:05:29 MDT 2023
 # IP Build 3864474 on Sun May  7 20:36:21 MDT 2023
 # SharedData Build 3865790 on Sun May 07 13:33:03 MDT 2023
-# Start of session at: Fri Oct 23 20:13:42 2026
-# Process ID: 17076
+# Start of session at: Fri Oct 30 19:13:00 2026
+# Process ID: 8788
 # Current directory: C:/Users/Udp/LAB03_FSM_ACCESO/LAB03_FSM_ACCESO.runs/synth_1
 # Command line: vivado.exe -log lab03_top.vds -product Vivado -mode batch -messageDb vivado.pb -notrace -source lab03_top.tcl
 # Log file: C:/Users/Udp/LAB03_FSM_ACCESO/LAB03_FSM_ACCESO.runs/synth_1/lab03_top.vds

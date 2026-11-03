@@ -2,7 +2,6 @@ library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
 use IEEE.NUMERIC_STD.ALL;
 
-
 entity fsm_acceso is
     Port ( 
         CLK       : in STD_LOGIC;
@@ -17,15 +16,14 @@ entity fsm_acceso is
     );
 end fsm_acceso;
 
-
 architecture Behavioral of fsm_acceso is
-    -- Se agregan los estados E1, E2, E3 y E4 para la ruta de error retardada
-    type tipo_estado is (INICIO, S1, S2, S3, S4, E1, E2, E3, E4, ACCESO, ERROR_CLAVE, BLOQUEO);
+    -- Estados con los NOMBRES EXACTOS de la pizarra del profesor
+    type tipo_estado is (INICIO, OK1, OK2, OK3, OK4, ESTADO_OK, E1, E2, E3, E4, NOK, BLOQUEO);
     signal estado_actual, estado_siguiente : tipo_estado;
     signal cont_intentos : unsigned(1 downto 0) := "00";
 begin
 
-
+    -- Registro de estado y contador de intentos (Síncrono)
     process (CLK)
     begin
         if rising_edge(CLK) then
@@ -37,8 +35,10 @@ begin
                     estado_actual <= BLOQUEO;
                 else
                     estado_actual <= estado_siguiente;
-                    -- Se cuenta un intento fallido al evaluar el 5.o digito con error
-                    if (estado_actual = S4 or estado_actual = E4) and estado_siguiente /= ACCESO then
+                    
+                    -- INCREMENTO PERFECTO: Solo cuenta el intento fallido al llegar al 5to bit (NOK o BLOQUEO)
+                    if (estado_siguiente = NOK or estado_siguiente = BLOQUEO) and 
+                       (estado_actual = E4 or estado_actual = OK4) then
                         if cont_intentos < 3 then
                             cont_intentos <= cont_intentos + 1;
                         end if;
@@ -48,57 +48,39 @@ begin
         end if;
     end process;
 
-
+    -- Lógica de transición de estados basada fielmente en la pizarra
     process (estado_actual, X, cont_intentos)
     begin
         estado_siguiente <= estado_actual;
         case estado_actual is
-            -- Ruta de secuencia correcta
-            when INICIO =>
-                if X = '1' then estado_siguiente <= S1; else estado_siguiente <= E1; end if;
-            when S1 =>
-                if X = '0' then estado_siguiente <= S2; else estado_siguiente <= E2; end if;
-            when S2 =>
-                if X = '1' then estado_siguiente <= S3; else estado_siguiente <= E3; end if;
-            when S3 =>
-                if X = '1' then estado_siguiente <= S4; else estado_siguiente <= E4; end if;
-            when S4 =>
-                if X = '0' then
-                    estado_siguiente <= ACCESO;
-                elsif cont_intentos >= 2 then
-                    estado_siguiente <= BLOQUEO;      -- 3er intento fallido
-                else
-                    estado_siguiente <= ERROR_CLAVE;
+            -- RUTA CORRECTA (Izquierda de la pizarra)
+            when INICIO => if X = '1' then estado_siguiente <= OK1; else estado_siguiente <= E1; end if;
+            when OK1    => if X = '0' then estado_siguiente <= OK2; else estado_siguiente <= E2; end if;
+            when OK2    => if X = '1' then estado_siguiente <= OK3; else estado_siguiente <= E3; end if;
+            when OK3    => if X = '1' then estado_siguiente <= OK4; else estado_siguiente <= E4; end if;
+            when OK4    => 
+                if X = '0' then 
+                    estado_siguiente <= ESTADO_OK; 
+                else 
+                    if cont_intentos = 2 then estado_siguiente <= BLOQUEO; else estado_siguiente <= NOK; end if;
                 end if;
-            
-            -- Ruta de error (consume los bits restantes sin importar su valor)
-            when E1 => estado_siguiente <= E2;
+
+            -- RUTA DE ERRORES ARRASTRADOS (Derecha de la pizarra)
+            when E1 => estado_siguiente <= E2; -- Ignora X, arrastra el error
             when E2 => estado_siguiente <= E3;
             when E3 => estado_siguiente <= E4;
-            when E4 =>
-                if cont_intentos >= 2 then
-                    estado_siguiente <= BLOQUEO;      -- 3er intento fallido
-                else
-                    estado_siguiente <= ERROR_CLAVE;
-                end if;
-            
-            -- Estados finales
-            when ERROR_CLAVE =>
-                if cont_intentos >= 3 then
-                    estado_siguiente <= BLOQUEO;
-                else
-                    estado_siguiente <= INICIO;
-                end if;
-            when ACCESO =>
-                estado_siguiente <= ACCESO;
-            when BLOQUEO =>
-                estado_siguiente <= BLOQUEO;
-            when others =>
-                estado_siguiente <= INICIO;
+            when E4 => 
+                if cont_intentos = 2 then estado_siguiente <= BLOQUEO; else estado_siguiente <= NOK; end if;
+
+            -- ESTADOS FINALES (Esperan ENTER para volver a intentar)
+            when ESTADO_OK => estado_siguiente <= ESTADO_OK;
+            when NOK       => estado_siguiente <= INICIO; -- Al presionar ENTER después del error, vuelve al inicio
+            when BLOQUEO   => estado_siguiente <= BLOQUEO;
+            when others    => estado_siguiente <= INICIO;
         end case;
     end process;
 
-
+    -- Lógica de LEDs: ¡Aquí está el truco para engañar al usuario!
     process (estado_actual, cont_intentos)
     begin
         ACCESO_OK <= '0';
@@ -106,20 +88,24 @@ begin
         BLOQUEADO <= '0';
         ESTADO_LED <= "0000";
 
-
         case estado_actual is
             when INICIO => ESTADO_LED <= "0000";
-            -- Los estados de error (E) muestran el mismo LED que los estados correctos (S)
-            when S1 | E1 => ESTADO_LED <= "0001";
-            when S2 | E2 => ESTADO_LED <= "0010";
-            when S3 | E3 => ESTADO_LED <= "0011";
-            when S4 | E4 => ESTADO_LED <= "0100";
-            when ACCESO => 
+            
+            -- Los estados E muestran EXACTAMENTE LOS MISMOS LEDS que los OK
+            when OK1 | E1 => ESTADO_LED <= "0001";
+            when OK2 | E2 => ESTADO_LED <= "0010";
+            when OK3 | E3 => ESTADO_LED <= "0011";
+            when OK4 | E4 => ESTADO_LED <= "0100";
+            
+            when ESTADO_OK => 
                 ACCESO_OK <= '1';
                 ESTADO_LED <= "0101";
-            when ERROR_CLAVE => 
+                
+            -- El error solo se revela al final (NOK)
+            when NOK => 
                 ERROR <= '1';
                 ESTADO_LED <= "1110";
+                
             when BLOQUEO => 
                 BLOQUEADO <= '1';
                 ESTADO_LED <= "1111";
@@ -128,6 +114,5 @@ begin
         
         INTENTOS <= std_logic_vector(cont_intentos);
     end process;
-
 
 end Behavioral;

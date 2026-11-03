@@ -1,7 +1,7 @@
 Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
 ---------------------------------------------------------------------------------------------------------------------------------------------
 | Tool Version : Vivado v.2023.1 (win64) Build 3865809 Sun May  7 15:05:29 MDT 2023
-| Date         : Fri Oct 23 20:14:39 2026
+| Date         : Fri Oct 30 19:14:11 2026
 | Host         : DESKTOP-QOR2NU2 running 64-bit major release  (build 9200)
 | Command      : report_control_sets -verbose -file lab03_top_control_sets_placed.rpt
 | Design       : lab03_top
@@ -58,7 +58,7 @@ Table of Contents
 +--------------+-----------------------+------------------------+-----------------+--------------+
 | Clock Enable | Synchronous Set/Reset | Asynchronous Set/Reset | Total Registers | Total Slices |
 +--------------+-----------------------+------------------------+-----------------+--------------+
-| No           | No                    | No                     |               4 |            1 |
+| No           | No                    | No                     |               4 |            2 |
 | No           | No                    | Yes                    |               0 |            0 |
 | No           | Yes                   | No                     |               0 |            0 |
 | Yes          | No                    | No                     |               0 |            0 |
@@ -73,7 +73,7 @@ Table of Contents
 +----------------+--------------------+------------------+------------------+----------------+--------------+
 |  Clock Signal  |    Enable Signal   | Set/Reset Signal | Slice Load Count | Bel Load Count | Bels / Slice |
 +----------------+--------------------+------------------+------------------+----------------+--------------+
-|  CLK_IBUF_BUFG |                    |                  |                1 |              4 |         4.00 |
+|  CLK_IBUF_BUFG |                    |                  |                2 |              4 |         2.00 |
 |  CLK_IBUF_BUFG | Inst_detector/E[0] | RESET_IBUF       |                1 |              4 |         4.00 |
 +----------------+--------------------+------------------+------------------+----------------+--------------+
 
